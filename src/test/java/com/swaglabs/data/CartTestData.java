@@ -1,6 +1,5 @@
 package com.swaglabs.data;
 
-
 import java.util.stream.Stream;
 
 public class CartTestData {
