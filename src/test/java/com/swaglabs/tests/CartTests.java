@@ -1,9 +1,10 @@
 package com.swaglabs.tests;
 
-import com.swaglabs.data.CartTestData;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -23,7 +24,8 @@ public class CartTests extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("com.swaglabs.data.CartTestData#cartTestData")
-    @Description("Test adding products to cart and verifying cart count")
+    @DisplayName("Test adding products to cart and verifying cart count")
+    @Story("Add to Cart Functionality")
     @Severity(SeverityLevel.CRITICAL)
     public void testAddToCart(String products, String expectedCount, boolean addToCart) {
         login();
@@ -35,7 +37,6 @@ public class CartTests extends BaseTest {
                 inventoryPage.addProductToCart(product.trim());
             }
         }
-
         CartPage cartPage = inventoryPage.clickCartIcon();
         assertEquals(expectedCount, cartPage.getCartItemCount(), "Unexpected cart item count");
 
@@ -48,6 +49,8 @@ public class CartTests extends BaseTest {
 
     @Test
     @Description("Verify removing product from cart")
+    @DisplayName("Test removing product from cart")
+    @Story("Remove from Cart Functionality")
     @Severity(SeverityLevel.NORMAL)
     public void testRemoveFromCart() {
         login();
@@ -61,8 +64,10 @@ public class CartTests extends BaseTest {
 
     @Test
     @Description("Verify checkout button is disabled with empty cart")
+    @DisplayName("Test checkout button with empty cart")
+    @Story("Checkout Functionality")
     @Severity(SeverityLevel.NORMAL)
-    public void testCheckoutButtonEmptyCart() {
+    public void testCheckoutButtonWithEmptyCart() {
         login();
         InventoryPage inventoryPage = new InventoryPage(driver);
         inventoryPage.clickCartIcon();
@@ -72,6 +77,8 @@ public class CartTests extends BaseTest {
 
     @Test
     @Description("Verify cart page displays items and checkout button")
+    @DisplayName("Test cart page display with items")
+    @Story("Cart Page Display")
     @Severity(SeverityLevel.NORMAL)
     public void testCartPageDisplay() {
         login();
@@ -85,6 +92,8 @@ public class CartTests extends BaseTest {
 
     @Test
     @Description("Verify adding to cart without login")
+    @DisplayName("Test add to cart without login")
+    @Story("Add to Cart Without Login")
     @Severity(SeverityLevel.NORMAL)
     public void testAddToCartWithoutLogin() {
         driver.get("https://www.saucedemo.com/inventory.html");
