@@ -7,6 +7,8 @@ import com.swaglabs.data.LoginTestData;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,11 +18,10 @@ public class LoginTests extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("com.swaglabs.data.LoginTestData#validLoginTestData")
-    @Description("Test login functionality with various credentials")
+    @Story("Login Functionality")
+    @DisplayName("Test login with valid credentials")
     @Severity(SeverityLevel.CRITICAL)
     public void testLoginWithValidData(String username, String password, boolean shouldSucceed, String expectedResult) {
-//        LoginPage loginPage = new LoginPage(driver);
-//        loginPage.navigateTo();
         loginPage.enterCredentials(username, password);
         InventoryPage inventoryPage = loginPage.clickLogin();
         assertTrue(inventoryPage.isInventoryPageDisplayed(), "Expected to be on inventory page after successful login");
@@ -29,15 +30,12 @@ public class LoginTests extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("com.swaglabs.data.LoginTestData#invalidLoginTestData")
-    @Description("Test login functionality with various credentials")
+    @Story("Login Functionality")
+    @DisplayName("Test login with invalid credentials")
     @Severity(SeverityLevel.CRITICAL)
     public void testLoginWithInvalidData(String username, String password, boolean shouldSucceed, String expectedResult) {
-//        LoginPage loginPage = new LoginPage(driver);
-//        loginPage.navigateTo();
         loginPage.enterCredentials(username, password);
         InventoryPage inventoryPage = loginPage.clickLogin();
-
-
         if (shouldSucceed) {
             assertTrue(inventoryPage.isInventoryPageDisplayed(), "Expected to be on inventory page after successful login");
         } else {
@@ -46,7 +44,8 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    @Description("Verify logout functionality after successful login")
+    @DisplayName("Verify logout functionality after successful login")
+    @Story("Logout Functionality")
     @Severity(SeverityLevel.NORMAL)
     public void testLogout() {
         loginPage.enterCredentials("standard_user", "secret_sauce");
@@ -59,7 +58,8 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    @Description("Verify restricted page access without login")
+    @DisplayName("Verify restricted page access without login")
+    @Story("Restricted Page Access")
     @Severity(SeverityLevel.NORMAL)
     public void testRestrictedPageAccess() {
         driver.get("https://www.saucedemo.com/inventory.html");
@@ -67,7 +67,8 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    @Description("Verify login page displays form correctly")
+    @DisplayName("Verify login page displays form correctly")
+    @Story("Login Page Form Display")
     @Severity(SeverityLevel.MINOR)
     public void testLoginPageFormDisplay() {
         assertTrue(loginPage.isLoginPageDisplayed(), "Login page form not displayed correctly");
