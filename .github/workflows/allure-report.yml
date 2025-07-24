@@ -68,7 +68,12 @@ jobs:
       - name: Send Slack Notification
         uses: 8398a7/action-slack@v3
         with:
-          status: ${{ needs.build-and-test.result }}
+          status: STATUS="${{ needs.test.result }}"
+            if [ "$STATUS" = "success" ]; then
+            EMOJI=":white_check_mark:"
+            else
+            EMOJI=":x:"
+            fi
           text: ${{ needs.build-and-test.outputs.message }}
           fields: repo,message,commit,author,action,eventName,ref
         env:
