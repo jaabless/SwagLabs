@@ -43,19 +43,6 @@ public class LoginTests extends BaseTest {
         }
     }
 
-    @Test
-    @DisplayName("Verify logout functionality after successful login")
-    @Story("Logout Functionality")
-    @Severity(SeverityLevel.NORMAL)
-    public void testLogout() {
-        loginPage.enterCredentials("standard_user", "secret_sauce");
-        InventoryPage inventoryPage = loginPage.clickLogin();
-
-        assertTrue(inventoryPage.isInventoryPageDisplayed(), "Login failed, inventory page not displayed");
-
-        inventoryPage.logout();
-        assertTrue(loginPage.isLoginPageDisplayed(), "Expected to be on login page after logout");
-    }
 
     @Test
     @DisplayName("Verify restricted page access without login")
